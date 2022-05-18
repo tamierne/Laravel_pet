@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\AlbumController;
+use App\Http\Controllers\UserlistController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,8 +19,23 @@ use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
     return view('welcome');
+})->name('home');
+
+Route::group(['prefix' => 'admin', 'middleware' => 'logged'], function() {
+    Route::get('/', [AdminController::class, 'index'])->name('admin.index');
+    Route::get('logout', [AdminController::class, 'logout'])->name('logout');
+    Route::resource('album', AlbumController::class);
+    // Route::group(['prefix' => 'album/{album}'], function() {
+    //     Route::resource('photo', PhotoController::class);
+    // });
+    // Route::resource('photo', PhotoController::class);
+    Route::post('album/{album}/upload', [PhotoController::class, 'store'])->name('photo.upload');
+    Route::resource('user', UserlistController::class);
 });
 
-Route::group(['prefix' => 'admin'], function() {
-    Route::get('/', [AdminController::class, 'index'])->name('admin.index');
+Route::group(['middleware' => 'guest'], function () {
+    Route::get('/register', [AdminController::class, 'registerForm']);
+    Route::post('/register', [AdminController::class, 'register'])->name('register');
+    Route::get('/login', [AdminController::class, 'loginForm']);
+    Route::post('/login', [AdminController::class, 'login'])->name('login');
 });

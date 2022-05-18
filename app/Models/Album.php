@@ -7,16 +7,14 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Photo extends Model implements HasMedia
+class Album extends Model implements HasMedia
 {
     use InteractsWithMedia;
 
-    // protected $table = 'media';
-
-    // protected $fillable = [
-    //     'album_title',
-    //     'image',
-    // ];
+    protected $fillable = [
+        'title',
+        'created_by',
+    ];
 
     public function registerMediaConversions(Media $media = null): void
     {
@@ -26,9 +24,4 @@ class Photo extends Model implements HasMedia
             ->height(200)
             ->sharpen(10);
     }
-
-    // public function album()
-    // {
-    //     return $this->belongsTo(Album::class);
-    // }
 }

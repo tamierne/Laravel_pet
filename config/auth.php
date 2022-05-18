@@ -65,6 +65,16 @@ return [
             'model' => App\Models\User::class,
         ],
 
+        'albums' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Album::class,
+        ],
+
+        'photos' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Photo::class,
+        ],
+
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
