@@ -56,7 +56,6 @@ class AlbumController extends Controller
     public function show(Album $album)
     {
         $photos = $album->getMedia($album->title);
-        dump($photos);
         return view('admin.gallery.show', compact('album', 'photos'));
     }
 
@@ -78,9 +77,10 @@ class AlbumController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Album $album)
     {
-        //
+        $album->update(["title" => $request->title]);
+        return redirect()->back();
     }
 
     /**

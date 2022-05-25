@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\AlbumController;
+use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserlistController;
 
 /*
@@ -17,19 +18,22 @@ use App\Http\Controllers\UserlistController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', [MainController::class, 'index'])->name('home');
+
 
 Route::group(['prefix' => 'admin', 'middleware' => 'logged'], function() {
     Route::get('/', [AdminController::class, 'index'])->name('admin.index');
     Route::get('logout', [AdminController::class, 'logout'])->name('logout');
-    Route::resource('album', AlbumController::class);
+    Route::resources([
+        'album' => AlbumController::class,
+        'user' => UserlistController::class,
+    ]);
     // Route::group(['prefix' => 'album/{album}'], function() {
     //     Route::resource('photo', PhotoController::class);
     // });
     // Route::resource('photo', PhotoController::class);
     Route::post('album/{album}/upload', [PhotoController::class, 'store'])->name('photo.upload');
+    Route::delete('album.photo', [PhotoController::class, 'remove'])->name('photo.destroy');
     Route::resource('user', UserlistController::class);
 });
 

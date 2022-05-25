@@ -31,7 +31,7 @@
               @csrf
               <div class="input-group">
                 <div class="custom-file">
-                  <input type="file" class="custom-file-label" id="image" name="image">
+                  <input type="file" class="custom-file-label" id="image" name="image[]" multiple max-items="3" accept="image/png, image/jpeg">
                   {{-- <label class="custom-file-label" for="image"></label> --}}
                 </div>
                 <div class="input-group-append">
@@ -46,17 +46,16 @@
               @else
                 @foreach ($photos as $photo)
                 <div class="col-md-auto">
-                  <div class="card mb-2 bg-gradient-dark">
+                  <div class="card bg-dark text-white mb-2">
                     <a href="{{ $photo->getUrl() }}">
-                    {{ $photo('thumb') }}
+                      <img class="card-img" src="{{ $photo->getUrl('thumb') }}" alt="{{ $photo->name }}">
                     </a>
                       <div class="card-overlay flex-column justify-content-end">
-                        {{ $photo->id }}
-                          {{-- <form method="post" action="{{ route('photo.destroy', $photo->id) }}">
+                          <form method="post" action="{{ route('photo.destroy', [$album->id, $photo->id]) }}">
                           @csrf
                           @method('DELETE')
                           <button type="submit" class="btn btn-block btn-outline-danger btn-xs">Delete</button>
-                          </form> --}}
+                          </form>
                       </div>
                   </div>
                 </div>

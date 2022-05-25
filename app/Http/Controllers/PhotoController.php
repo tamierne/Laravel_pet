@@ -33,10 +33,18 @@ class PhotoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request, Album $album){
+
+        $request->validate([
+            "image" => "required|array|min:1|max:3",
+            "image.*" => "image",
+        ]);
         
-        if($request->hasFile('image') && $request->file('image')->isValid()){
-            dump($request->image);
-            $album->addMediaFromRequest('image')->toMediaCollection($album->title);
+        if($request->hasFile('image') && $request->file('image')){
+            // $album->addMediaFromRequest('image')->toMediaCollection($album->title);
+            // dd($request);
+            foreach($request->file('image') as $image) {
+                $album->addMedia($image)->toMediaCollection($album->title);
+             }
         }
     
         return redirect()->back();
@@ -77,24 +85,11 @@ class PhotoController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Photo $photo)
+    public function remove(Album $album, $id)
     {
+        $media = $album->getMedia($album->title);
+        $photo = $media->where('id', $id)->first();
         $photo->delete();
         return redirect()->back();
     }
-
-    // public function remove(Photo $photo)
-    // {
-    //     dd($photo);
-    //     Photo::findOrFail($request->id)->delete();
-    //     // $album->clearMediaCollection($album->title);
-    //     // $album->delete();
-    //     // return redirect()->back();
-    // }
 }

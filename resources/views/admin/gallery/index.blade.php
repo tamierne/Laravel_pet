@@ -26,27 +26,36 @@
                 </div>
               </form>
             </div>
-            <div class="row">
-              @if( count($albums) === 0 )
-                  Well, it's time to create something!
-              @else
-                  @foreach ($albums as $album)
-                  <div class="col-md-12 col-lg-6 col-xl-4">
-                    {{-- <div class="card mb-2 bg-gradient-dark"> --}}
-                      <a href="{{ route('album.show', $album->id) }}"><img class="card-img-top" src="../dist/img/photo1.png"></a>
-                        <div class="card-img-overlay d-flex flex-column justify-content-end">
-                          <h5 class="card-title text-primary text-black">{{ $album->title }}</h5>
-                          <a href="{{ route('album.show', $album->id) }}" class="btn btn-block btn-outline-secondary btn-xs mb-1">View album</a>
-                            <form method="Post" action="{{ route('album.destroy', $album->id) }}">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-block btn-outline-danger btn-xs">Delete</button>
-                            </form>
-                        </div>
-                    {{-- </div> --}}
-                  </div>
-                  @endforeach
-                @endif
+            <div class="container-fluid">
+              <div class="row">
+                @if( count($albums) === 0 )
+                    Well, it's time to create something!
+                @else
+                    @foreach ($albums as $album)
+                    <div class="col-md-12 col-lg-6 col-xl-4">
+                      <div class="card-body mb-2 bg-gradient-dark">
+                        <img src="" alt="{{ $album->title }}">
+                          <div class="d-flex flex-column justify-content-end">
+                            <div class="input-group mb-1 flex-column">
+                              <form method="Post" action="{{ route('album.update', $album->id) }}">
+                                <input type="text" name="title" class="btn btn-block btn-outline-light btn-flat mb-1" placeholder="{{ $album->title }}">
+                                @csrf
+                                @method('PUT')
+                                <button type="submit" class="btn btn-block btn-outline-primary btn-xs">Update name</button>
+                              </form>
+                            </div>
+                            <a href="{{ route('album.show', $album->id) }}" class="btn btn-block btn-outline-secondary btn-xs mb-1">View album</a>
+                              <form method="Post" action="{{ route('album.destroy', $album->id) }}">
+                              @csrf
+                              @method('DELETE')
+                              <button type="submit" class="btn btn-block btn-outline-danger btn-xs">Delete</button>
+                              </form>
+                          </div>
+                      </div>
+                    </div>
+                    @endforeach
+                  @endif
+              </div>
             </div>
           </div>
       </div>

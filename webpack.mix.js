@@ -11,9 +11,11 @@ const mix = require('laravel-mix');
  |
  */
 mix.styles([
-    'resources/admin/css/adminlte.min.css',
+    'resources/admin/css/adminlte.css',
     'resources/admin/plugins/fontawesome-free/css/all.min.css'
     ], 'public/assets/admin/css/styles.css');
+
+mix.styles(['resources/css/styles.css'], 'public/assets/css/styles.css');
 
 mix.js('resources/js/app.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
@@ -27,7 +29,7 @@ mix.scripts([
 ], 'public/assets/admin/js/scripts.js');
 
 mix.copyDirectory('resources/admin/plugins/fontawesome-free/webfonts', 'public/assets/admin/webfonts');
-mix.copyDirectory('resources/admin/img', 'public/assets/admin/img');
+mix.copyDirectory('resources/webfonts', 'public/assets/webfonts');
 
-mix.copy('resources/admin/css/adminlte.min.css.map', 'public/assets/admin/css/adminlte.min.css.map');
+mix.copy('resources/admin/css/adminlte.css.map', 'public/assets/admin/css/adminlte.css.map');
 mix.copy('resources/admin/js/adminlte.min.js.map', 'public/assets/admin/js/adminlte.min.js.map');

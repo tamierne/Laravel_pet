@@ -31,11 +31,11 @@
                             <td>{{ $user->name }}</td>
                             <td>
                                 @foreach($user->albums as $album)
-                                <a href="{{ route('album.show', $album->id) }}" class="btn btn-primary btn-sm">{{ $album->title }}</a>
+                                <a href="{{ route('album.show', $album->id) }}" class="btn btn-primary btn-flat">{{ $album->title }}</a>
                                 @endforeach
                             </td>
                             <td class="px-6 py-3 whitespace-nowrap text-sm font-medium">
-                                <form action="{{ route('user.update', $user->id) }}" method="POST">
+                                <form method="POST" action="{{ route('user.update', $user->id) }}">
                                     @csrf
                                     @method('PUT')
                                         @if ($user->is_admin != 0)
@@ -44,7 +44,7 @@
                                             <button type="submit" class="btn btn-block btn-success btn-flat" name="is_admin" value='1'>Set as Admin</button>
                                         @endif
                                 </form>
-                                <form class="inline-block" action="{{ route('user.destroy', $user->id) }}" method="POST">
+                                <form method="POST" class="inline-block" action="{{ route('user.destroy', $user->id) }}">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-block btn-danger btn-flat" value='Delete'>Delete</button>
@@ -56,7 +56,7 @@
             </table>
         </div>
         <div>
-         <form method="post" action="{{ route('user.store') }}">
+         <form method="POST" action="{{ route('user.store') }}">
             @csrf
             <div class="card-body">
                 <div class="form-group">
@@ -74,8 +74,8 @@
             </div>
 
             <div class="card-body">
-            <button type="submit" class="btn btn-primary" name="is_admin" value="0">Register as user</button>
-            <button type="submit" class="btn btn-secondary" name="is_admin" value="1">Register as admin</button>
+            <button type="submit" class="btn btn-primary btn-flat" name="is_admin" value="0">Register as user</button>
+            <button type="submit" class="btn btn-secondary btn-flat" name="is_admin" value="1">Register as admin</button>
             </div>
         </form>
         </div>

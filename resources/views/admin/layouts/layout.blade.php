@@ -38,7 +38,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="{{ url('/')}}" target="_blank" class="brand-link">
+    <a href="{{ route('home') }}" target="_blank" class="brand-link">
       <i class="nav-icon far fa-caret-square-left ml-4"></i>
       <span class="brand-text font-weight-light ml-1">Go to Homepage</span>
     </a>

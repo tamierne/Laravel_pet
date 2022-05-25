@@ -38,8 +38,8 @@
         
         <div class="card-footer">
             <div class="d-inline-flex">
-            <button type="submit" class="btn btn-primary">Register!</button>
-            <a href="{{ route('home') }}" class="btn btn-block btn-secondary ml-3">Back</a>
+            <button type="submit" class="btn btn-primary btn-flat">Register!</button>
+            <a href="{{ route('home') }}" class="btn btn-block btn-secondary btn-flat ml-2">Back</a>
             </div>
         </div>
     </form>    
